@@ -1,19 +1,15 @@
-const express = require ('express')
-const {loggermidlleware}=require('./midlleware/logger') 
-const bookrouter=require('./routes/book.routes')    
-const app = express()
-const port =  8000;
-
-   
-app.use(express.json())
-app.use(loggermidlleware)
-//middleware plugin // many exist 
-
-// removed all the routes and transfer to route folfder and insed of app changed thsa to router and exported it 
- 
-//routes access
-app.use('/books',bookrouter)
-app.listen(port,()=>{
-    console.log(`server is tening on ${port}`)
+import dotenv from "dotenv";
+import { connectDb } from "./db/index.js";
+import app from "./app.js"
+dotenv.config({
+    path:"./.env"
 })
- 
+const port = process.env.PORT||3000
+connectDb()
+.then(()=>{
+    app.listen(port,()=>{console.log(`Server is listening on ${port} `)})
+})
+.catch((err)=>{
+    console.log("There was error While Connecting to db")
+})
+
