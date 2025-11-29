@@ -1,9 +1,14 @@
-// const express=require('express')
-// const bookcontroller=require('../controller/book.controller')
-// const router = express.Router()
 
-// router.get('/',bookcontroller.getallboooks) 
-// router.get('/:id',bookcontroller.getbookbyid)
-// router.post('/',bookcontroller.postbook) 
-// router.delete('/:id',bookcontroller.d)
-// module.exports=router; 
+import { Router} from "express";
+import { validate } from "../midlleware/validator.middleware.js";
+import { VErifyjwt } from "../midlleware/auth.middleware.js";
+import { BookPostValidator, GetBook } from "../validators/bookvalidator.js";
+import { getBook, getBookWithId, uploadBook } from "../controller/book.controller.js";
+const router=Router() 
+
+router.route('/UploadBook').post(VErifyjwt,BookPostValidator(),validate,uploadBook)
+router.route('/getBooks').get(VErifyjwt,GetBook(),validate,getBook)
+router.route('/getBook/:_id').get(VErifyjwt,GetBook(),validate,getBookWithId)
+
+
+export default router

@@ -5,6 +5,8 @@ import {userRegisterValidator,userLoginValidator, userforgotpasswordvalidator, u
 import { login } from "../controller/auth.controller.js";
 import { VErifyjwt } from "../midlleware/auth.middleware.js";
 const router=Router()   
+
+
 //unsecured  route 
 router.route("/register").post(userRegisterValidator(),validate,registerUser)
 router.route("/login").post(userLoginValidator(),login)
@@ -12,6 +14,8 @@ router.route("/verify-email/:verificationtoken").get(verifyemail);
 router.route("/refresh-token").post(refreshaccestoken);
 router.route("/forgot-password").post(userforgotpasswordvalidator(),validate,forgotpasswordreq);
 router.route("/reset-password/:resetToken").post(userforgotpasswordvalidator(),validate,resetForgotPassword);
+
+
 //secure
 router.route("/logout").post(VErifyjwt,logoutuser)
 router.route("/Cureent-user").post(VErifyjwt,currentuser)
