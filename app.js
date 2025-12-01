@@ -9,7 +9,9 @@ app.use(cookieParser())
 import AuthRouter from "./routes/auth.route.js"
 import BookRouter from "./routes/book.routes.js"
 
-
+app.use("/",(req,res)=>{
+    res.status(200).send("Welcome to bookstore")
+})
 app.use("/api/v1/Auth",AuthRouter) 
 app.use("/Library",BookRouter)
  export default app
